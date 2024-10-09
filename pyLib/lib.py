@@ -1,6 +1,6 @@
-import math
-import pyLib.utils as utils
 
+import pyLib.utils as utils
+import numpy as np
 
 class Weight:
   def __init__(self, weight):
@@ -53,19 +53,31 @@ class Network:
         result += "\t" + str(n.bias)
         result += "\n"
     print(result)
-  def cost(self):
-    pass
-  def backpropagate(self, output_expects):
-    pass
+  def cost(self, expects):
+
+    result = 0
+    for ni in range(len(self.layers[-1].neurons)):
+      result += (self.layers[-1].neurons[ni].activator - expects[ni])**2
+    return result
+  def backpropagate(self, expects, training_interval = .05):
+    for neuroni in range(len(self.layers[-1].neurons)):
+        cost = (self.layers[-1].neurons[neuroni].activator - expects[neuroni])**2
+        for layer in self.layers[:-1]:
+          for neuron in layer.neurons:
+            neuron.weights[neuroni].weight += -cost * neuron.activator * training_interval #?? + nest pls
   def train(self, training_data):
-    #for data in training_data[0]:
-      data = training_data[0][0]
-      print("DAT:", data)
-      for i in range(len(self.layers[0].neurons)):
-        w,h = (len(data), len(data[0]))
-        self.layers[0].neurons[i].activator = data[int(i/w)][i%w]
-      self.run()
-      self.backpropagate(output_expectations)
+    for training_ex in training_data:
+      for data in training_ex[0]:
+        #data = training_data[0][0]
+        print("DAT:", data)
+        for i in range(len(self.layers[0].neurons)):
+          w,h = (len(data), len(data[0]))
+          self.layers[0].neurons[i].activator = data[int(i/w)][i%w]
+        self.run()
+        self.display()
+      print("network cost: ", self.cost(data[1]))
+      print("expected:  ", data[1])
+      self.backpropagate(data[1])
   def run(self):
     for layeri in range(1, len(self.layers)):
       for neuroni in range(len(self.layers[layeri].neurons)):

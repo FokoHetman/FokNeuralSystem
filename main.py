@@ -11,8 +11,10 @@ for img_path in images:
   img = cv2.imread(img_path, 0) / 255.0
   print(img)
   data = img_path.split(".")[0].split("/")[1].split("_")
-  training_data.append((img, int(data[1]), data[0])) # image, expected_result, test_pair_id
-
+  expected = [0 for _ in range(2)]
+  expected[int(data[1])] = 1
+  training_data.append((img, expected, data[0])) # image, expected_result, test_pair_id
+print("TRAINING_DAT: ", training_data)
 
 input_layer = neurons.Layer([neurons.Neuron(0) for i in range(256)])
 
@@ -28,4 +30,5 @@ net = neurons.Network([
     ], True, nutils.sigmoid)
 net.correctify()
 net.train(training_data)
+net.run()
 net.display()

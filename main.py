@@ -102,7 +102,7 @@ network = display_test_network
 
 network.display()
 
-network.set_input([1])
+network.set_input([1,0])
 
 network.train([0,1], debug=True)
 

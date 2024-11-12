@@ -25,7 +25,7 @@ class Network:
           Y = f(X)'''
           #print([x,y], [x+offset_x, y-offset_y*wi])
           axt.plot([x,x+offset_x], [y, y-offset_y*(wi-ni)], 'r')
-          axt.text(x+offset_x/2,(y+(x+offset_x))/2 + 0.002, round(i.neurons[ni].weights[wi].weight,2), color='r')
+          axt.text(x+offset_x/2,y+offset_y/2 + 0.002, round(i.neurons[ni].weights[wi].weight,2), color='r')
         y-=offset_y
       x+=offset_x
     if axt==plt:

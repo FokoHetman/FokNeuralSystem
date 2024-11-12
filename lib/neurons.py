@@ -58,7 +58,7 @@ class Network:
           #print("LAYER: ", li-1, "; NEURON: ", len(n_expected))
           n.weights[ni].weight -= interval * n.activator * ader(n.activator * n.weights[ni].weight + self.layers[li].neurons[ni].bias) * (2 * (self.layers[li].neurons[ni].activator - expected[ni]))
           #self.layers[li].neurons[ni].bias += interval * ader(n.activator * n.weights[ni].weight + self.layers[li].neurons[ni].bias) * (2 * (self.layers[li].neurons[ni].activator - expected[ni]))
-        n_expected.append(n.activator - (ader(n.weights[ni].weight + self.layers[li].neurons[ni].bias) * (2 * (self.layers[li].neurons[ni].activator - expected[ni]))))
+          n_expected.append(n.activator - (ader(n.weights[ni].weight + self.layers[li].neurons[ni].bias) * (2 * (self.layers[li].neurons[ni].activator - expected[ni]))))
       expected = n_expected
   def set_input(self, values: list) -> bool:
     assert len(self.layers) > 0

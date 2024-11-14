@@ -6,6 +6,6 @@ reLU = lambda x: int(x>0)*x
 
 
 derivatives = {
-  sigmoid: lambda x: sigmoid(x)(1 - sigmoid(x)),
+  sigmoid: lambda x: x * (1 - x),
   reLU: lambda x: int(x>=0),
 }
